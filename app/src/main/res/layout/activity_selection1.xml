@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/abcd"
+    tools:context=".Selection1">
+
+    <TextView
+        android:id="@+id/select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select desired plot size"
+        android:textSize="50px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        />
+
+    <Spinner
+        android:id="@+id/plotsize"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/select"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="150dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:paddingHorizontal="50dp"
+
+        />
+
+    <TextView
+        android:id="@+id/select1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select desired house type"
+        android:textSize="50px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/plotsize"
+        android:textStyle="bold"
+        />
+    <RadioGroup
+        android:layout_width="1000dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/select1"
+        android:paddingTop="25dp"
+        android:paddingHorizontal="150dp"
+        android:id="@+id/radiogroup">
+
+        <RadioButton
+            android:id="@+id/modern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="radioClick"
+            android:text="Modern"
+            tools:text="Modern" />
+
+        <RadioButton
+            android:id="@+id/urban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="radioClick"
+            android:text="Urban"
+            tools:text="Urban" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radiogroup"
+        android:layout_marginTop="-222dp"
+        android:text="Proceed" />
+
+</RelativeLayout>
