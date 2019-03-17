@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/abcd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bricks"
     tools:context=".Selection1">
 
     <TextView
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Select desired plot size"
         android:textSize="50px"
+        android:textColor="@android:color/background_light"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:textStyle="bold"
@@ -37,8 +38,9 @@
         android:layout_height="wrap_content"
         android:text="Select desired house type"
         android:textSize="50px"
+        android:textColor="@android:color/background_light"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/plotsize"
         android:textStyle="bold"
         />
@@ -56,7 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="radioClick"
+            android:buttonTint="@android:color/holo_blue_light"
             android:text="Modern"
+            android:textColor="@android:color/background_light"
             tools:text="Modern" />
 
         <RadioButton
@@ -65,15 +69,21 @@
             android:layout_height="wrap_content"
             android:onClick="radioClick"
             android:text="Urban"
+            android:buttonTint="@android:color/holo_blue_light"
+            android:textColor="@android:color/background_light"
             tools:text="Urban" />
     </RadioGroup>
 
-    <Button
+    <ImageButton
         android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/radiogroup"
-        android:layout_marginTop="-222dp"
-        android:text="Proceed" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/build3"
+        android:scaleType="fitXY"
+
+       />
 
 </RelativeLayout>

@@ -25,11 +25,12 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class Arview extends AppCompatActivity
+public class
+Arview extends AppCompatActivity
 {
 
     private ArFragment arFragment;
-    ModelRenderable houseRenderable,houseRenderable1,houseRenderable2,houseRenderable3;
+    ModelRenderable houseRenderable,houseRenderable1,houseRenderable2,houseRenderable3, houseRenderable4;
     Button button;
     HitResult hitResult = null;
     GridView gridView;
@@ -75,6 +76,11 @@ public class Arview extends AppCompatActivity
                     .build()
                     .thenAccept(renderable -> houseRenderable3 = renderable);
 
+            ModelRenderable.builder()
+                     .setSource(this,R.raw.untitled)
+                      .build()
+                     .thenAccept(renderable -> houseRenderable4 = renderable);
+
 
             arFragment.setOnTapArPlaneListener(
                     (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
@@ -109,9 +115,13 @@ public class Arview extends AppCompatActivity
                             house.setRenderable(houseRenderable3);
                             house.setParent(anchorNode);
                             house.select();
-                            //house.getLocalPosition();
                         }
-
+                        else if(pos==4)
+                        {
+                            house.setRenderable(houseRenderable4);
+                            house.setParent(anchorNode);
+                            house.select();
+                        }
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -130,6 +140,7 @@ public class Arview extends AppCompatActivity
                 R.drawable.buildinga01,
                 R.drawable.buildinga02,
                 R.drawable.buildinga03,
+                R.drawable.untitled
 
         };
 

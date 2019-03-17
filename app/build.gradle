@@ -54,3 +54,8 @@ sceneform.asset('sampledata/Building_A03.obj',
         'default',
         'sampledata/Building_A03.sfa',
         'src/main/res/raw/building_a03')
+
+sceneform.asset('sampledata/untitled.obj',
+        'default',
+        'sampledata/untitled.sfa',
+        'src/main/assets/untitled')
