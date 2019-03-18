@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90">
+            <fragment
+                android:id="@+id/sceneform_fragment"
+                android:name="com.google.ar.sceneform.ux.ArFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/remove"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center_horizontal|center"
+                    android:text="Remove Object" />
+
+                <Button
+                    android:id="@+id/convert"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center"
+                    android:text="Convert to 2D" />
+            </LinearLayout>
+        </RelativeLayout>
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:id="@+id/asset_library"
+            android:numColumns="4"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="10dp"
+            android:layout_gravity="center"
+            android:stretchMode="columnWidth"
+            android:layout_marginTop="1dp"
+            >
+
+        </GridView>
+    </LinearLayout>
+</RelativeLayout>

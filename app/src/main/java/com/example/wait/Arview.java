@@ -19,6 +19,8 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -42,7 +44,7 @@ Arview extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
 
-        button = findViewById(R.id.convert);
+        button = findViewById(R.id.remove);
         gridView = (GridView) findViewById(R.id.asset_library);
         gridView.setAdapter(new ImageAdapterGridView(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,13 +83,20 @@ Arview extends AppCompatActivity
                       .build()
                      .thenAccept(renderable -> houseRenderable4 = renderable);
 
-
+        TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
+        house.setOnTapListener(new Node.OnTapListener() {
+            @Override
+            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                house.select();
+            }
+        });
+        
             arFragment.setOnTapArPlaneListener(
                     (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
                         Anchor anchor = hitResult.createAnchor();
                         AnchorNode anchorNode = new AnchorNode(anchor);
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
-                        TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
+
 
                         if (houseRenderable == null) {
                             return;
@@ -129,8 +138,9 @@ Arview extends AppCompatActivity
                             }
                         });
 
-
                     });
+
+
     }
 
     class ImageAdapterGridView extends BaseAdapter {

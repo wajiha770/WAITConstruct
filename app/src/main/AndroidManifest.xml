@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="com.google.ar.core" android:value="required" />
         <activity android:name=".Selection1"></activity>
+        <activity android:name=".Arview1"></activity>
         <activity android:name=".Arview"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

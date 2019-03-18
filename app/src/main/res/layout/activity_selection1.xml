@@ -6,84 +6,60 @@
     android:background="@drawable/bricks"
     tools:context=".Selection1">
 
-    <TextView
-        android:id="@+id/select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select desired plot size"
-        android:textSize="50px"
-        android:textColor="@android:color/background_light"
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:textStyle="bold"
-        />
-
-    <Spinner
-        android:id="@+id/plotsize"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/select"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="150dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:paddingHorizontal="50dp"
-
-        />
-
+        android:src="@drawable/wait"/>
     <TextView
         android:id="@+id/select1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
         android:text="Select desired house type"
-        android:textSize="50px"
         android:textColor="@android:color/background_light"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/plotsize"
+        android:textSize="50px"
         android:textStyle="bold"
-        />
+        android:layout_centerHorizontal="true"/>
+
     <RadioGroup
+        android:id="@+id/radiogroup"
         android:layout_width="1000dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/select1"
-        android:paddingTop="25dp"
+        android:layout_marginTop="-11dp"
         android:paddingHorizontal="150dp"
-        android:id="@+id/radiogroup">
+        android:paddingTop="25dp">
 
         <RadioButton
-            android:id="@+id/modern"
+            android:id="@+id/prebuilt"
+            android:layout_width="183dp"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/holo_blue_light"
+            android:onClick="radioClick"
+            android:text="Choose from pre built models"
+            android:textColor="@android:color/background_light" />
+
+        <RadioButton
+            android:id="@+id/own"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="radioClick"
             android:buttonTint="@android:color/holo_blue_light"
-            android:text="Modern"
-            android:textColor="@android:color/background_light"
-            tools:text="Modern" />
-
-        <RadioButton
-            android:id="@+id/urban"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:onClick="radioClick"
-            android:text="Urban"
-            android:buttonTint="@android:color/holo_blue_light"
-            android:textColor="@android:color/background_light"
-            tools:text="Urban" />
+            android:text="Build your own model"
+            android:textColor="@android:color/background_light" />
     </RadioGroup>
 
     <ImageButton
         android:id="@+id/next"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="92dp"
+        android:layout_height="84dp"
         android:layout_below="@+id/radiogroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/build3"
+        android:layout_marginTop="86dp"
         android:scaleType="fitXY"
+        android:src="@drawable/build3"
 
-       />
+        />
 
 </RelativeLayout>
