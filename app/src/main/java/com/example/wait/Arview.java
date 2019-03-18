@@ -83,14 +83,9 @@ Arview extends AppCompatActivity
                       .build()
                      .thenAccept(renderable -> houseRenderable4 = renderable);
 
+
         TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
-        house.setOnTapListener(new Node.OnTapListener() {
-            @Override
-            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                house.select();
-            }
-        });
-        
+
             arFragment.setOnTapArPlaneListener(
                     (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
                         Anchor anchor = hitResult.createAnchor();
@@ -105,40 +100,50 @@ Arview extends AppCompatActivity
                         {
                             house.setRenderable(houseRenderable);
                             house.setParent(anchorNode);
-                            house.select();
+                            //house.select();
                         }
                         else if(pos==1)
                         {
                             house.setRenderable(houseRenderable1);
                             house.setParent(anchorNode);
-                            house.select();
+                            //house.select();
                         }
                         else if(pos==2)
                         {
                             house.setRenderable(houseRenderable2);
                             house.setParent(anchorNode);
-                            house.select();
+                            //house.select();
                         }
                         else if(pos==3)
                         {
                             house.setRenderable(houseRenderable3);
                             house.setParent(anchorNode);
-                            house.select();
+                            //house.select();
                         }
                         else if(pos==4)
                         {
                             house.setRenderable(houseRenderable4);
                             house.setParent(anchorNode);
-                            house.select();
+                            //house.select();
                         }
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                anchorNode.removeChild(house);
+                                if(house.select()) {
+                                    anchorNode.removeChild(house);
+                                }
                             }
                         });
 
                     });
+
+        house.setOnTapListener(new Node.OnTapListener() {
+            @Override
+            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                house.select();
+
+            }
+        });
 
 
     }
