@@ -10,13 +10,15 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/wait"/>
+        android:src="@drawable/capture"
+        android:layout_marginTop="50dp"
+        />
     <TextView
         android:id="@+id/select1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
-        android:text="Select desired house type"
+        android:layout_marginTop="280dp"
+        android:text="Select method of modelling"
         android:textColor="@android:color/background_light"
         android:textSize="50px"
         android:textStyle="bold"
@@ -27,13 +29,13 @@
         android:layout_width="1000dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/select1"
-        android:layout_marginTop="-11dp"
+
         android:paddingHorizontal="150dp"
         android:paddingTop="25dp">
 
         <RadioButton
             android:id="@+id/prebuilt"
-            android:layout_width="183dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@android:color/holo_blue_light"
             android:onClick="radioClick"
@@ -52,13 +54,14 @@
 
     <ImageButton
         android:id="@+id/next"
-        android:layout_width="92dp"
-        android:layout_height="84dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/radiogroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp"
-        android:scaleType="fitXY"
+        android:layout_marginTop="90dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/build3"
+
 
         />
 

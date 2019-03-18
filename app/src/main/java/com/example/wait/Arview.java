@@ -84,13 +84,23 @@ Arview extends AppCompatActivity
                      .thenAccept(renderable -> houseRenderable4 = renderable);
 
 
-        TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
+
 
             arFragment.setOnTapArPlaneListener(
                     (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
+
                         Anchor anchor = hitResult.createAnchor();
                         AnchorNode anchorNode = new AnchorNode(anchor);
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
+                        TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
+
+                       /*house.setOnTapListener(new Node.OnTapListener() {
+                            @Override
+                            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                                house.select();
+
+                            }
+                        });*/
 
 
                         if (houseRenderable == null) {
@@ -100,31 +110,31 @@ Arview extends AppCompatActivity
                         {
                             house.setRenderable(houseRenderable);
                             house.setParent(anchorNode);
-                            //house.select();
+                            house.select();
                         }
                         else if(pos==1)
                         {
                             house.setRenderable(houseRenderable1);
                             house.setParent(anchorNode);
-                            //house.select();
+                            house.select();
                         }
                         else if(pos==2)
                         {
                             house.setRenderable(houseRenderable2);
                             house.setParent(anchorNode);
-                            //house.select();
+                            house.select();
                         }
                         else if(pos==3)
                         {
                             house.setRenderable(houseRenderable3);
                             house.setParent(anchorNode);
-                            //house.select();
+                            house.select();
                         }
                         else if(pos==4)
                         {
                             house.setRenderable(houseRenderable4);
                             house.setParent(anchorNode);
-                            //house.select();
+                            house.select();
                         }
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -137,13 +147,7 @@ Arview extends AppCompatActivity
 
                     });
 
-        house.setOnTapListener(new Node.OnTapListener() {
-            @Override
-            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                house.select();
 
-            }
-        });
 
 
     }

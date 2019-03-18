@@ -59,3 +59,8 @@ sceneform.asset('sampledata/untitled.obj',
         'default',
         'sampledata/untitled.sfa',
         'src/main/assets/untitled')
+
+sceneform.asset('sampledata/untitled1.obj',
+        'default',
+        'sampledata/untitled1.sfa',
+        'src/main/res/raw/untitled1')
