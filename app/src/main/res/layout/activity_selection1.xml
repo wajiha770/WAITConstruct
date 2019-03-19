@@ -18,29 +18,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="280dp"
-        android:text="Select method of modelling"
+        android:text="Select Method of Modelling"
         android:textColor="@android:color/background_light"
-        android:textSize="50px"
+        android:textSize="22dp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"/>
 
     <RadioGroup
         android:id="@+id/radiogroup"
-        android:layout_width="1000dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/select1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
 
-        android:paddingHorizontal="150dp"
+
         android:paddingTop="25dp">
-
-        <RadioButton
-            android:id="@+id/prebuilt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@android:color/holo_blue_light"
-            android:onClick="radioClick"
-            android:text="Choose from pre built models"
-            android:textColor="@android:color/background_light" />
 
         <RadioButton
             android:id="@+id/own"
@@ -49,7 +42,19 @@
             android:buttonTint="@android:color/holo_blue_light"
             android:onClick="radioClick"
             android:text="Build your own model"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:id="@+id/prebuilt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/holo_blue_light"
+            android:onClick="radioClick"
+            android:text="Choose from pre built models"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp"/>
+
     </RadioGroup>
 
     <ImageButton
@@ -58,10 +63,9 @@
         android:layout_height="70dp"
         android:layout_below="@+id/radiogroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
         android:scaleType="fitCenter"
+        android:layout_marginTop="50dp"
         android:src="@drawable/build3"
-
 
         />
 

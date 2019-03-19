@@ -1,11 +1,15 @@
 package com.example.wait;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -17,8 +21,6 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.HitTestResult;
-import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -29,18 +31,19 @@ public class Arview1 extends AppCompatActivity {
 
     private ArFragment arFragment;
     ModelRenderable houseRenderable,houseRenderable1;
-    Button button;
+    Button remove, capture, convert;
     HitResult hitResult = null;
     GridView gridView;
     int pos;
-    int a;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar1);
 
-        button = findViewById(R.id.convert);
+        remove = findViewById(R.id.remove);
+        capture = findViewById(R.id.capture);
+        convert = findViewById(R.id.convert);
         gridView = (GridView) findViewById(R.id.asset_library);
         gridView.setAdapter(new Arview1.ImageAdapterGridView(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,27 +53,25 @@ public class Arview1 extends AppCompatActivity {
                 Toast.makeText(Arview1.this, "Selection item: " + pos, LENGTH_SHORT).show();
             }
         });
+        capture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         arFragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
         ModelRenderable.builder()
-                .setSource(this,R.raw.bg4_obj)
+                .setSource(this,R.raw.untitled1)
                 .build()
                 .thenAccept(renderable -> houseRenderable = renderable);
 
         ModelRenderable.builder()
-                .setSource(this,R.raw.building_a01)
+                .setSource(this,R.raw.untitled)
                 .build()
                 .thenAccept(renderable -> houseRenderable1 = renderable);
-
-        TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
-        house.setOnTapListener(new Node.OnTapListener() {
-                                   @Override
-                                   public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                                       house.select();
-                                   }
-                               });
 
 
         arFragment.setOnTapArPlaneListener(
@@ -78,6 +79,7 @@ public class Arview1 extends AppCompatActivity {
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
+                    TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
 
                     if (houseRenderable == null) {
                         return;
@@ -94,10 +96,13 @@ public class Arview1 extends AppCompatActivity {
                         house.setParent(anchorNode);
                         house.select();
                     }
-                    button.setOnClickListener(new View.OnClickListener() {
+                    remove.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            anchorNode.removeChild(house);
+                            if(house.select())
+                            {
+                                anchorNode.removeChild(house);
+                            }
                         }
                     });
 
@@ -109,8 +114,8 @@ public class Arview1 extends AppCompatActivity {
     class ImageAdapterGridView extends BaseAdapter {
         private Context mContext;
         Integer[] imageIDs = {
-                R.drawable.bg4obj,
-                R.drawable.buildinga01,
+                R.drawable.bricks,
+                R.drawable.untitled,
 
         };
 

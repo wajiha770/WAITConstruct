@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <LinearLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -29,16 +29,28 @@
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
 
-                    android:layout_gravity="center_horizontal|center"
-                    android:text="Remove Object" />
+                    android:layout_gravity="right"
+                    android:text="Remove Object"
+                    android:layout_row="0"
+                    android:layout_column="0" />
 
                 <Button
                     android:id="@+id/convert"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center"
-                    android:text="Convert to 2D" />
-            </LinearLayout>
+                    android:layout_gravity="left"
+                    android:text="Convert to 2D"
+                    android:layout_row="0"
+                    android:layout_column="0"/>
+                <Button
+                    android:id="@+id/capture"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Capture Scene"
+                    android:layout_row="0"
+                    android:layout_column="0"/>
+            </GridLayout>
         </RelativeLayout>
         <GridView
             android:layout_width="match_parent"

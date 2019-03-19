@@ -37,6 +37,7 @@
     file: 'sampledata/untitled1.obj',
     name: 'untitled1',
     recenter: 'root',
+    scale: 0.065359
   },
   samplers: [
     {
