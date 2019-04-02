@@ -64,3 +64,8 @@ sceneform.asset('sampledata/untitled1.obj',
         'default',
         'sampledata/untitled1.sfa',
         'src/main/res/raw/untitled1')
+
+sceneform.asset('sampledata/mauerwerk.obj',
+        'default',
+        'sampledata/mauerwerk.sfa',
+        'src/main/res/raw/mauerwerk')

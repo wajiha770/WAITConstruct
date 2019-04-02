@@ -31,11 +31,11 @@ public class Selection1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(a==0) {
-                    Intent proceed = new Intent(getApplicationContext(), Arview.class);
+                    Intent proceed = new Intent(getApplicationContext(), Arview1.class);
                     startActivity(proceed);
                 }
                 else if(a==1){
-                    Intent proceed = new Intent(getApplicationContext(), Arview1.class);
+                    Intent proceed = new Intent(getApplicationContext(), Arview.class);
                     startActivity(proceed);
                 }
                 else {
@@ -50,14 +50,14 @@ public class Selection1 extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId())
         {
-            case R.id.prebuilt:
+            case R.id.own:
                 if(checked)
                 {
                     a=0;
                 }
                 break;
 
-            case R.id.own:
+            case R.id.prebuilt:
                 if(checked)
                 {
                     a=1;

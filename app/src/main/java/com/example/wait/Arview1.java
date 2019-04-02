@@ -1,9 +1,7 @@
 package com.example.wait;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.MotionEvent;
@@ -21,6 +19,10 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.math.Quaternion;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -31,7 +33,7 @@ public class Arview1 extends AppCompatActivity {
 
     private ArFragment arFragment;
     ModelRenderable houseRenderable,houseRenderable1;
-    Button remove, capture, convert;
+    Button remove, help, convert;
     HitResult hitResult = null;
     GridView gridView;
     int pos;
@@ -42,7 +44,7 @@ public class Arview1 extends AppCompatActivity {
         setContentView(R.layout.activity_ar1);
 
         remove = findViewById(R.id.remove);
-        capture = findViewById(R.id.capture);
+        help = findViewById(R.id.help);
         convert = findViewById(R.id.convert);
         gridView = (GridView) findViewById(R.id.asset_library);
         gridView.setAdapter(new Arview1.ImageAdapterGridView(this));
@@ -53,18 +55,12 @@ public class Arview1 extends AppCompatActivity {
                 Toast.makeText(Arview1.this, "Selection item: " + pos, LENGTH_SHORT).show();
             }
         });
-        capture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         arFragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
         ModelRenderable.builder()
-                .setSource(this,R.raw.untitled1)
+                .setSource(this,R.raw.mauerwerk)
                 .build()
                 .thenAccept(renderable -> houseRenderable = renderable);
 
@@ -88,6 +84,7 @@ public class Arview1 extends AppCompatActivity {
                     {
                         house.setRenderable(houseRenderable);
                         house.setParent(anchorNode);
+                        house.setLocalRotation(Quaternion.axisAngle(new Vector3(1f, 0, 0), 90f));
                         house.select();
                     }
                     else if(pos==1)
@@ -96,22 +93,22 @@ public class Arview1 extends AppCompatActivity {
                         house.setParent(anchorNode);
                         house.select();
                     }
-                    remove.setOnClickListener(new View.OnClickListener() {
+                    house.setOnTapListener(new Node.OnTapListener() {
                         @Override
-                        public void onClick(View v) {
-                            if(house.select())
-                            {
-                                anchorNode.removeChild(house);
-                            }
+                        public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                            remove.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    anchorNode.removeChild(house);
+                                }
+                            });
                         }
                     });
-
-
                 });
 
     }
 
-    class ImageAdapterGridView extends BaseAdapter {
+    static class ImageAdapterGridView extends BaseAdapter {
         private Context mContext;
         Integer[] imageIDs = {
                 R.drawable.bricks,

@@ -1,9 +1,7 @@
 package com.example.wait;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.MotionEvent;
@@ -35,7 +33,7 @@ Arview extends AppCompatActivity
 
     private ArFragment arFragment;
     ModelRenderable houseRenderable,houseRenderable1,houseRenderable2,houseRenderable3, houseRenderable4;
-    Button remove, capture;
+    Button remove, help;
     HitResult hitResult = null;
     GridView gridView;
     int pos;
@@ -46,9 +44,10 @@ Arview extends AppCompatActivity
         setContentView(R.layout.activity_ar);
 
         remove = findViewById(R.id.remove);
-        capture = findViewById(R.id.capture);
+        help = findViewById(R.id.help);
+
         gridView = (GridView) findViewById(R.id.asset_library);
-        gridView.setAdapter(new ImageAdapterGridView(this));
+        gridView.setAdapter(new Arview.ImageAdapterGridView(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
@@ -56,14 +55,6 @@ Arview extends AppCompatActivity
                 Toast.makeText(Arview.this, "Selection item: " + pos, LENGTH_SHORT).show();
             }
         });
-        /*capture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(i);
-
-            }
-        });*/
 
         arFragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
@@ -113,6 +104,7 @@ Arview extends AppCompatActivity
                             house.setRenderable(houseRenderable);
                             house.setParent(anchorNode);
                             house.select();
+
                         }
                         else if(pos==1)
                         {
@@ -138,14 +130,23 @@ Arview extends AppCompatActivity
                             house.setParent(anchorNode);
                             house.select();
                         }
-                        remove.setOnClickListener(new View.OnClickListener() {
+                        house.setOnTapListener(new Node.OnTapListener() {
                             @Override
-                            public void onClick(View v) {
-                                anchorNode.removeChild(house);
+                            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                                remove.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        anchorNode.removeChild(house);
+                                    }
+                                });
                             }
                         });
                     });
+
+
+
     }
+
 
     class ImageAdapterGridView extends BaseAdapter {
         private Context mContext;

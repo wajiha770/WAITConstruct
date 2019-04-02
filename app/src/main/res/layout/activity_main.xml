@@ -5,6 +5,7 @@
     android:background="@drawable/bricks"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+
     >
 
     <ImageView
@@ -39,8 +40,9 @@ Press the Button to Start"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
         android:id="@+id/getstarted"
-        android:src="@drawable/prcoeed"
+        android:src="@drawable/proceed"
         android:scaleType="centerCrop"
+        android:background="@android:color/transparent"
         />
 
 </RelativeLayout>
