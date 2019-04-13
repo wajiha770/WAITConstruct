@@ -21,7 +21,9 @@ import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -85,8 +87,6 @@ Arview extends AppCompatActivity
                      .thenAccept(renderable -> houseRenderable4 = renderable);
 
 
-
-
             arFragment.setOnTapArPlaneListener(
                     (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
 
@@ -111,12 +111,20 @@ Arview extends AppCompatActivity
                             house.setRenderable(houseRenderable1);
                             house.setParent(anchorNode);
                             house.select();
+                            Vector3 position = house.getLocalPosition();
+                            int x = (int) position.x;
+                            int y = (int) position.y;
+                            Toast.makeText(this, x+" , "+y, Toast.LENGTH_LONG).show();
                         }
                         else if(pos==2)
                         {
                             house.setRenderable(houseRenderable2);
                             house.setParent(anchorNode);
                             house.select();
+                            Vector3 position = house.getLocalPosition();
+                            int x = (int) position.x;
+                            int y = (int) position.y;
+                            Toast.makeText(this, x+" , "+y, Toast.LENGTH_LONG).show();
                         }
                         else if(pos==3)
                         {
@@ -143,9 +151,8 @@ Arview extends AppCompatActivity
                         });
                     });
 
-
-
     }
+
 
 
     class ImageAdapterGridView extends BaseAdapter {
@@ -154,8 +161,7 @@ Arview extends AppCompatActivity
                 R.drawable.bg4obj,
                 R.drawable.buildinga01,
                 R.drawable.buildinga02,
-                R.drawable.buildinga03,
-                R.drawable.untitled
+                R.drawable.buildinga03
 
         };
 

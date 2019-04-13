@@ -2,6 +2,7 @@ package com.example.wait;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.MotionEvent;
@@ -18,10 +19,10 @@ import android.widget.Toast;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
+import com.google.ar.core.TrackingState;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
-import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
@@ -60,7 +61,7 @@ public class Arview1 extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
         ModelRenderable.builder()
-                .setSource(this,R.raw.mauerwerk)
+                .setSource(this,R.raw.untitled1)
                 .build()
                 .thenAccept(renderable -> houseRenderable = renderable);
 
@@ -84,14 +85,31 @@ public class Arview1 extends AppCompatActivity {
                     {
                         house.setRenderable(houseRenderable);
                         house.setParent(anchorNode);
-                        house.setLocalRotation(Quaternion.axisAngle(new Vector3(1f, 0, 0), 90f));
                         house.select();
-                    }
+                        //check this -> house.getLocalScale();
+                                house.addTransformChangedListener(new Node.TransformChangedListener() {
+                                    @Override
+                                    public void onTransformChanged(Node node, Node node1) {
+                                        //Vector3 position = anchorNode.getLocalPosition();
+                                        //Toast.makeText(Arview1.this, "position:"+position, Toast.LENGTH_LONG).show();
+                                        Vector3 position = node1.getWorldPosition();
+                                        Toast.makeText(Arview1.this, "Position:"+position, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+
                     else if(pos==1)
                     {
                         house.setRenderable(houseRenderable1);
                         house.setParent(anchorNode);
                         house.select();
+                        convert.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Vector3 position = house.getLocalPosition();
+                                Toast.makeText(Arview1.this, "position:"+position, Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
                     house.setOnTapListener(new Node.OnTapListener() {
                         @Override
@@ -112,7 +130,7 @@ public class Arview1 extends AppCompatActivity {
         private Context mContext;
         Integer[] imageIDs = {
                 R.drawable.bricks,
-                R.drawable.untitled,
+                R.drawable.untitled131,
 
         };
 
