@@ -23,9 +23,9 @@ import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
-import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -39,7 +39,6 @@ Arview extends AppCompatActivity
     HitResult hitResult = null;
     GridView gridView;
     int pos;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

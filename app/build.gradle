@@ -60,14 +60,17 @@ sceneform.asset('sampledata/untitled.obj',
         'sampledata/untitled.sfa',
         'src/main/assets/untitled')
 
-sceneform.asset('sampledata/untitled1.obj',
+sceneform.asset('sampledata/d1.obj',
         'default',
-        'sampledata/untitled1.sfa',
-        'src/main/res/raw/untitled1')
+        'sampledata/d1.sfa',
+        'src/main/res/raw/d1')
 
-sceneform.asset('sampledata/mauerwerk.obj',
+sceneform.asset('sampledata/w1.obj',
         'default',
-        'sampledata/mauerwerk.sfa',
-        'src/main/res/raw/mauerwerk')
+        'sampledata/w1.sfa',
+        'src/main/res/raw/w1')
 
-
+sceneform.asset('sampledata/w2.obj',
+        'default',
+        'sampledata/w2.sfa',
+        'src/main/res/raw/w2')

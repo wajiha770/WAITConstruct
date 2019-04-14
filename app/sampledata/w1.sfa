@@ -4,7 +4,7 @@
       name: 'Material',
       parameters: [
         {
-          baseColor: 'varnished-wood-texture-plain-820x532',
+          baseColor: 'w1',
         },
         {
           baseColorTint: [
@@ -34,16 +34,15 @@
       'Orientation',
     ],
     collision: {},
-    file: 'sampledata/untitled1.obj',
-    name: 'untitled1',
+    file: 'sampledata/w1.obj',
+    name: 'w1',
     recenter: 'root',
-    scale: 0.065359
   },
   samplers: [
     {
-      file: 'sampledata\\varnished-wood-texture-plain-820x532.jpg',
-      name: 'varnished-wood-texture-plain-820x532',
-      pipeline_name: 'varnished-wood-texture-plain-820x532.jpg',
+      file: 'sampledata\\w1.jpg',
+      name: 'w1',
+      pipeline_name: 'w1.jpg',
     },
   ],
   version: '0.54:1',
