@@ -218,7 +218,7 @@
     file: 'sampledata/bg4_obj.obj',
     name: 'bg4_obj',
     recenter: 'root',
-    scale: 0.065359,
+    scale: 0.25,
   },
   version: '0.54:1',
 }

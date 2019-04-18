@@ -26,11 +26,9 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
-
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class
-Arview extends AppCompatActivity
+public class Arview extends AppCompatActivity
 {
 
     private ArFragment arFragment;
@@ -40,12 +38,14 @@ Arview extends AppCompatActivity
     GridView gridView;
     int pos;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
 
         remove = findViewById(R.id.remove);
         help = findViewById(R.id.help);
+
 
         gridView = (GridView) findViewById(R.id.asset_library);
         gridView.setAdapter(new Arview.ImageAdapterGridView(this));
@@ -94,7 +94,6 @@ Arview extends AppCompatActivity
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
                         TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
 
-
                         if (houseRenderable == null) {
                             return;
                         }
@@ -110,20 +109,12 @@ Arview extends AppCompatActivity
                             house.setRenderable(houseRenderable1);
                             house.setParent(anchorNode);
                             house.select();
-                            Vector3 position = house.getLocalPosition();
-                            int x = (int) position.x;
-                            int y = (int) position.y;
-                            Toast.makeText(this, x+" , "+y, Toast.LENGTH_LONG).show();
                         }
                         else if(pos==2)
                         {
                             house.setRenderable(houseRenderable2);
                             house.setParent(anchorNode);
                             house.select();
-                            Vector3 position = house.getLocalPosition();
-                            int x = (int) position.x;
-                            int y = (int) position.y;
-                            Toast.makeText(this, x+" , "+y, Toast.LENGTH_LONG).show();
                         }
                         else if(pos==3)
                         {
@@ -143,6 +134,7 @@ Arview extends AppCompatActivity
                                 remove.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+
                                         anchorNode.removeChild(house);
                                     }
                                 });
@@ -161,6 +153,7 @@ Arview extends AppCompatActivity
                 R.drawable.buildinga01,
                 R.drawable.buildinga02,
                 R.drawable.buildinga03
+
 
         };
 

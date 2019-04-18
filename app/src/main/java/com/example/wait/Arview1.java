@@ -27,16 +27,23 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class Arview1 extends AppCompatActivity {
+public class Arview1 extends AppCompatActivity
+{
 
     private ArFragment arFragment;
-    ModelRenderable houseRenderable,houseRenderable1, houseRenderable2;
+    ModelRenderable houseRenderable,houseRenderable1,houseRenderable2;
     Button remove, help, convert;
     HitResult hitResult = null;
     GridView gridView;
-    int pos;
+    int pos, i=0;
+    List list = Collections.synchronizedList(new LinkedList<TransformableNode>());
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,13 @@ public class Arview1 extends AppCompatActivity {
         remove = findViewById(R.id.remove);
         help = findViewById(R.id.help);
         convert = findViewById(R.id.convert);
+        convert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map();
+            }
+        });
+
         gridView = (GridView) findViewById(R.id.asset_library);
         gridView.setAdapter(new Arview1.ImageAdapterGridView(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,8 +89,10 @@ public class Arview1 extends AppCompatActivity {
                 .thenAccept(renderable -> houseRenderable2 = renderable);
 
 
+
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
+
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
@@ -90,41 +106,29 @@ public class Arview1 extends AppCompatActivity {
                         house.setRenderable(houseRenderable);
                         house.setParent(anchorNode);
                         house.select();
-                        //check this -> house.getLocalScale();
-                                house.addTransformChangedListener(new Node.TransformChangedListener() {
-                                    @Override
-                                    public void onTransformChanged(Node node, Node node1)
-                                    {
-                                        Vector3 position = node1.getWorldPosition();
-                                        Toast.makeText(Arview1.this, "Position:"+position, Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-
+                        list.add(house);
+                    }
                     else if(pos==1)
                     {
                         house.setRenderable(houseRenderable1);
                         house.setParent(anchorNode);
                         house.select();
-
                     }
                     else if(pos==2)
                     {
                         house.setRenderable(houseRenderable2);
                         house.setParent(anchorNode);
                         house.select();
-
                     }
+
+
                     house.setOnTapListener(new Node.OnTapListener() {
                         @Override
                         public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                             remove.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(View v)
-                                {
+                                public void onClick(View v) {
                                     anchorNode.removeChild(house);
-                                    anchor.detach();
-
                                 }
                             });
                         }
@@ -133,7 +137,33 @@ public class Arview1 extends AppCompatActivity {
 
     }
 
-    static class ImageAdapterGridView extends BaseAdapter {
+    public void map()
+    {
+        Iterator<TransformableNode> iterator=list.listIterator();
+        while (iterator.hasNext())
+        {
+            TransformableNode node=iterator.next();
+            Vector3 position=node.getLocalPosition();
+            float x=position.x;
+            float y=position.y;
+            Toast.makeText(this, "position"+position, Toast.LENGTH_SHORT).show();
+            /*
+            if(node.getRenderable()==houseRenderable)
+            {
+
+            }
+            else if(node.getRenderable()==houseRenderable1)
+            {
+
+            }
+            else if(node.getRenderable()==houseRenderable2)
+            {
+
+            }*/
+        }
+    }
+
+static class ImageAdapterGridView extends BaseAdapter {
         private Context mContext;
         Integer[] imageIDs = {
                 R.drawable.w1,
@@ -175,4 +205,6 @@ public class Arview1 extends AppCompatActivity {
         }
     }
 }
+
+
 

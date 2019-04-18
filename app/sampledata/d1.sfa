@@ -37,6 +37,7 @@
     file: 'sampledata/d1.obj',
     name: 'd1',
     recenter: 'root',
+    scale: 0.18
   },
   samplers: [
     {
