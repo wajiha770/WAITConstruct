@@ -2,6 +2,7 @@ package com.example.wait;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.MotionEvent;
@@ -27,39 +28,24 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class Arview1 extends AppCompatActivity
 {
 
     private ArFragment arFragment;
-    ModelRenderable houseRenderable,houseRenderable1,houseRenderable2;
-    Button remove, help, convert;
+    static ModelRenderable houseRenderable,houseRenderable1,houseRenderable2,houseRenderable3,houseRenderable4, houseRenderable5, houseRenderable6;
+    Button remove, help;
     HitResult hitResult = null;
     GridView gridView;
-    int pos, i=0;
-    List list = Collections.synchronizedList(new LinkedList<TransformableNode>());
+    static int pos;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar1);
-
         remove = findViewById(R.id.remove);
         help = findViewById(R.id.help);
-        convert = findViewById(R.id.convert);
-        convert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                map();
-            }
-        });
-
         gridView = (GridView) findViewById(R.id.asset_library);
         gridView.setAdapter(new Arview1.ImageAdapterGridView(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,10 +70,29 @@ public class Arview1 extends AppCompatActivity
                 .thenAccept(renderable -> houseRenderable1 = renderable);
 
         ModelRenderable.builder()
-                .setSource(this,R.raw.d1)
+                .setSource(this,R.raw.w3)
                 .build()
                 .thenAccept(renderable -> houseRenderable2 = renderable);
 
+        ModelRenderable.builder()
+                .setSource(this,R.raw.w4)
+                .build()
+                .thenAccept(renderable -> houseRenderable3 = renderable);
+
+        ModelRenderable.builder()
+                .setSource(this,R.raw.w5)
+                .build()
+                .thenAccept(renderable -> houseRenderable4 = renderable);
+
+        ModelRenderable.builder()
+                .setSource(this,R.raw.d1)
+                .build()
+                .thenAccept(renderable -> houseRenderable5 = renderable);
+
+        ModelRenderable.builder()
+                .setSource(this,R.raw.d3)
+                .build()
+                .thenAccept(renderable -> houseRenderable6 = renderable);
 
 
         arFragment.setOnTapArPlaneListener(
@@ -106,7 +111,6 @@ public class Arview1 extends AppCompatActivity
                         house.setRenderable(houseRenderable);
                         house.setParent(anchorNode);
                         house.select();
-                        list.add(house);
                     }
                     else if(pos==1)
                     {
@@ -120,7 +124,30 @@ public class Arview1 extends AppCompatActivity
                         house.setParent(anchorNode);
                         house.select();
                     }
-
+                    else if(pos==3)
+                    {
+                        house.setRenderable(houseRenderable3);
+                        house.setParent(anchorNode);
+                        house.select();
+                    }
+                    else if(pos==4)
+                    {
+                        house.setRenderable(houseRenderable4);
+                        house.setParent(anchorNode);
+                        house.select();
+                    }
+                    else if(pos==5)
+                    {
+                        house.setRenderable(houseRenderable5);
+                        house.setParent(anchorNode);
+                        house.select();
+                    }
+                    else if(pos==6)
+                    {
+                        house.setRenderable(houseRenderable6);
+                        house.setParent(anchorNode);
+                        house.select();
+                    }
 
                     house.setOnTapListener(new Node.OnTapListener() {
                         @Override
@@ -137,38 +164,17 @@ public class Arview1 extends AppCompatActivity
 
     }
 
-    public void map()
-    {
-        Iterator<TransformableNode> iterator=list.listIterator();
-        while (iterator.hasNext())
-        {
-            TransformableNode node=iterator.next();
-            Vector3 position=node.getLocalPosition();
-            float x=position.x;
-            float y=position.y;
-            Toast.makeText(this, "position"+position, Toast.LENGTH_SHORT).show();
-            /*
-            if(node.getRenderable()==houseRenderable)
-            {
-
-            }
-            else if(node.getRenderable()==houseRenderable1)
-            {
-
-            }
-            else if(node.getRenderable()==houseRenderable2)
-            {
-
-            }*/
-        }
-    }
 
 static class ImageAdapterGridView extends BaseAdapter {
         private Context mContext;
         Integer[] imageIDs = {
                 R.drawable.w1,
                 R.drawable.w2,
-                R.drawable.d1
+                R.drawable.w3,
+                R.drawable.w4,
+                R.drawable.w5,
+                R.drawable.d1,
+                R.drawable.d3
         };
 
         public ImageAdapterGridView(Context c) {

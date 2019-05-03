@@ -37,6 +37,7 @@
     file: 'sampledata/w1.obj',
     name: 'w1',
     recenter: 'root',
+    scale: 0.2
   },
   samplers: [
     {

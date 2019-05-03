@@ -74,3 +74,25 @@ sceneform.asset('sampledata/w2.obj',
         'default',
         'sampledata/w2.sfa',
         'src/main/res/raw/w2')
+
+
+
+sceneform.asset('sampledata/d3.obj',
+        'default',
+        'sampledata/d3.sfa',
+        'src/main/res/raw/d3')
+
+sceneform.asset('sampledata/w3.obj',
+        'default',
+        'sampledata/w3.sfa',
+        'src/main/res/raw/w3')
+
+sceneform.asset('sampledata/w4.obj',
+        'default',
+        'sampledata/w4.sfa',
+        'src/main/res/raw/w4')
+
+sceneform.asset('sampledata/w5.obj',
+        'default',
+        'sampledata/w5.sfa',
+        'src/main/res/raw/w5')
