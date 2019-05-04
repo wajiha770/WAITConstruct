@@ -32,7 +32,7 @@ public class Arview1 extends AppCompatActivity
 {
 
     private ArFragment arFragment;
-    static ModelRenderable houseRenderable,houseRenderable1,houseRenderable2,houseRenderable3,houseRenderable4, houseRenderable5, houseRenderable6;
+    static ModelRenderable houseRenderable;
     Button remove, help;
     HitResult hitResult = null;
     GridView gridView;
@@ -49,7 +49,6 @@ public class Arview1 extends AppCompatActivity
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
 
         createGrid();
-        createRenderables();
         placeObjects();
     }
 
@@ -57,57 +56,15 @@ public class Arview1 extends AppCompatActivity
     {
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-
+                    houseRenderable = createRenderables();
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
                     TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
 
-                    if (houseRenderable == null) {
-                        return;
-                    }
-                    else if(pos==0)
-                    {
-                        house.setRenderable(houseRenderable);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==1)
-                    {
-                        house.setRenderable(houseRenderable1);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==2)
-                    {
-                        house.setRenderable(houseRenderable2);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==3)
-                    {
-                        house.setRenderable(houseRenderable3);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==4)
-                    {
-                        house.setRenderable(houseRenderable4);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==5)
-                    {
-                        house.setRenderable(houseRenderable5);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==6)
-                    {
-                        house.setRenderable(houseRenderable6);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
+                    house.setRenderable(houseRenderable);
+                    house.setParent(anchorNode);
+                    house.select();
 
                     house.setOnTapListener(new Node.OnTapListener() {
                         @Override
@@ -123,42 +80,58 @@ public class Arview1 extends AppCompatActivity
                 });
     }
 
-    private void createRenderables()
+    private ModelRenderable createRenderables()
     {
-        ModelRenderable.builder()
-                .setSource(this,R.raw.w1)
-                .build()
-                .thenAccept(renderable -> houseRenderable = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.w2)
-                .build()
-                .thenAccept(renderable -> houseRenderable1 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.w3)
-                .build()
-                .thenAccept(renderable -> houseRenderable2 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.w4)
-                .build()
-                .thenAccept(renderable -> houseRenderable3 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.w5)
-                .build()
-                .thenAccept(renderable -> houseRenderable4 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.d1)
-                .build()
-                .thenAccept(renderable -> houseRenderable5 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.d3)
-                .build()
-                .thenAccept(renderable -> houseRenderable6 = renderable);
+        if(pos==0)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.w1)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==1)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.w2)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==2)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.w3)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==3)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.w4)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==4)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.w5)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==5)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.d1)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==6)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.d3)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        return houseRenderable;
     }
 
     private void createGrid()

@@ -31,7 +31,7 @@ public class Arview extends AppCompatActivity
 {
 
     private ArFragment arFragment;
-    ModelRenderable houseRenderable,houseRenderable1,houseRenderable2,houseRenderable3, houseRenderable4;
+    ModelRenderable houseRenderable;
     Button remove, help;
     HitResult hitResult = null;
     GridView gridView;
@@ -47,9 +47,8 @@ public class Arview extends AppCompatActivity
         gridView = (GridView) findViewById(R.id.asset_library);
         arFragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
-        
+
         createGrid();
-        createRenderables();
         placeObjects();
     }
 
@@ -58,45 +57,16 @@ public class Arview extends AppCompatActivity
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
 
+                    houseRenderable = createRenderables();
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
                     TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
 
-                    if (houseRenderable == null) {
-                        return;
-                    }
-                    else if(pos==0)
-                    {
-                        house.setRenderable(houseRenderable);
-                        house.setParent(anchorNode);
-                        house.select();
+                    house.setRenderable(houseRenderable);
+                    house.setParent(anchorNode);
+                    house.select();
 
-                    }
-                    else if(pos==1)
-                    {
-                        house.setRenderable(houseRenderable1);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==2)
-                    {
-                        house.setRenderable(houseRenderable2);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==3)
-                    {
-                        house.setRenderable(houseRenderable3);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
-                    else if(pos==4)
-                    {
-                        house.setRenderable(houseRenderable4);
-                        house.setParent(anchorNode);
-                        house.select();
-                    }
                     house.setOnTapListener(new Node.OnTapListener() {
                         @Override
                         public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
@@ -112,32 +82,45 @@ public class Arview extends AppCompatActivity
                 });
     }
 
-    private void createRenderables()
+    private ModelRenderable createRenderables()
     {
-        ModelRenderable.builder()
-                .setSource(this,R.raw.bg4_obj)
-                .build()
-                .thenAccept(renderable -> houseRenderable = renderable);
+        if(pos==0)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.bg4_obj)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
 
-        ModelRenderable.builder()
-                .setSource(this,R.raw.building_a01)
-                .build()
-                .thenAccept(renderable -> houseRenderable1 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.building_a02)
-                .build()
-                .thenAccept(renderable -> houseRenderable2 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.building_a03)
-                .build()
-                .thenAccept(renderable -> houseRenderable3 = renderable);
-
-        ModelRenderable.builder()
-                .setSource(this,R.raw.untitled)
-                .build()
-                .thenAccept(renderable -> houseRenderable4 = renderable);
+        }
+        else if(pos==1)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.building_a01)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==2)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.building_a02)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==3)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.building_a03)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        else if(pos==4)
+        {
+            ModelRenderable.builder()
+                    .setSource(this,R.raw.untitled)
+                    .build()
+                    .thenAccept(renderable -> houseRenderable = renderable);
+        }
+        return houseRenderable;
     }
 
     private void createGrid()

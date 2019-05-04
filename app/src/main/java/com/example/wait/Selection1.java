@@ -17,7 +17,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class Selection1 extends AppCompatActivity {
 
     ImageButton proceed;
-    int a;
+    int option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,11 @@ public class Selection1 extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(a==0) {
+                if(option==0) {
                     Intent proceed = new Intent(getApplicationContext(), Arview1.class);
                     startActivity(proceed);
                 }
-                else if(a==1){
+                else if(option==1){
                     Intent proceed = new Intent(getApplicationContext(), Arview.class);
                     startActivity(proceed);
                 }
@@ -56,14 +56,14 @@ public class Selection1 extends AppCompatActivity {
             case R.id.own:
                 if(checked)
                 {
-                    a=0;
+                    option=0;
                 }
                 break;
 
             case R.id.prebuilt:
                 if(checked)
                 {
-                    a=1;
+                    option=1;
                 }
                 break;
         }
