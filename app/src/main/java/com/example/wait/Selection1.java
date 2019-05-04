@@ -23,9 +23,12 @@ public class Selection1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection1);
-
-
         proceed=findViewById(R.id.next);
+        proceed();
+    }
+
+    private void proceed()
+    {
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override

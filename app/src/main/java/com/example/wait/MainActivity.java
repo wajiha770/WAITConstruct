@@ -23,6 +23,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent getstarted = new Intent(getApplicationContext(), Selection1.class);
         startActivity(getstarted);
     }
-
-
 }
