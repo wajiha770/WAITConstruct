@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,8 +54,8 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
     private ArFragment arFragment;
     private AnchorNode lastAnchorNode;
     private TextView txtDistance;
-    Button btnDist, btnClear;
-    ModelRenderable cubeRenderable, heightRenderable;
+    Button btnDist, btnClear, help;
+    ModelRenderable cubeRenderable;
     boolean btnLengthClicked;
     Vector3 point1, point2;
 
@@ -61,10 +64,6 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (!checkIsSupportedDeviceOrFinish(this)) {
-            return;
-        }
 
         setContentView(R.layout.activity_measuredistance);
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
@@ -76,6 +75,35 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
         });
         btnClear = findViewById(R.id.clear);
         btnClear.setOnClickListener(v -> onClear());
+        help=findViewById(R.id.help);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder
+                        = new AlertDialog
+                        .Builder(MeasureDistance.this);
+                builder.setMessage("1. Tap on one end of your plot to place an anchor." +
+                        "2. Move to the other end and tap again to place another anchor." +
+                        "3. You will see the distance between the points in meters at the bottom of the screen.");
+                builder.setTitle("Instructions");
+                builder.setCancelable(false);
+                builder
+                        .setPositiveButton(
+                                "Ok",
+                                new DialogInterface
+                                        .OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which)
+                                    {
+                                        finish();
+                                    }
+                                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
 
         MaterialFactory.makeTransparentWithColor(this, new Color(0F, 0F, 244F))
                 .thenAccept(
@@ -86,14 +114,6 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                             cubeRenderable.setShadowReceiver(false);
                         });
 
-        MaterialFactory.makeTransparentWithColor(this, new Color(0F, 0F, 244F))
-                .thenAccept(
-                        material -> {
-                            Vector3 vector3 = new Vector3(0.007f, 0.1f, 0.007f);
-                            heightRenderable = ShapeFactory.makeCube(vector3, Vector3.zero(), material);
-                            heightRenderable.setShadowCaster(false);
-                            heightRenderable.setShadowReceiver(false);
-                        });
 
 
         arFragment.setOnTapArPlaneListener(
@@ -101,27 +121,6 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                     if (cubeRenderable == null) {
                         return;
                     }
-
-                    /*
-                    if (btnHeightClicked) {
-                        if (lastAnchorNode != null) {
-                            Toast.makeText(this, "Please click clear button", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Anchor anchor = hitResult.createAnchor();
-                        AnchorNode anchorNode = new AnchorNode(anchor);
-                        anchorNode.setParent(arFragment.getArSceneView().getScene());
-                        TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
-                        transformableNode.setParent(anchorNode);
-                        transformableNode.setRenderable(heightRenderable);
-                        transformableNode.select();
-                        ScaleController scaleController = transformableNode.getScaleController();
-                        scaleController.setMaxScale(10f);
-                        scaleController.setMinScale(0.01f);
-                        transformableNode.setOnTapListener(this);
-                        arFragment.getArSceneView().getScene().addOnUpdateListener(this);
-                        lastAnchorNode = anchorNode;
-                    }*/
 
                     if (btnLengthClicked) {
                         if (lastAnchorNode == null) {
@@ -231,27 +230,7 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                 distanceZ * distanceZ);
     }
 
-    @SuppressLint("ObsoleteSdkInt")
-    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
-        if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
-            Log.e(TAG, "Sceneform requires Android N or later");
-            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
-            activity.finish();
-            return false;
-        }
-        String openGlVersionString =
-                ((ActivityManager) Objects.requireNonNull(activity.getSystemService(Context.ACTIVITY_SERVICE)))
-                        .getDeviceConfigurationInfo()
-                        .getGlEsVersion();
-        if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
-            Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
-            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
-                    .show();
-            activity.finish();
-            return false;
-        }
-        return true;
-    }
+
 
     @SuppressLint("SetTextI18n")
     @Override

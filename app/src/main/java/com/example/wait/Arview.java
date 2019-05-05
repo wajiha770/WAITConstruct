@@ -1,7 +1,9 @@
 package com.example.wait;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.MotionEvent;
@@ -44,6 +46,36 @@ public class Arview extends AppCompatActivity
 
         remove = findViewById(R.id.remove);
         help = findViewById(R.id.help);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder
+                        = new AlertDialog
+                        .Builder(Arview.this);
+                builder.setMessage("1. Move your device slowly in a clockwise manner to detect any flat surface in front of you." +
+                        "2. Click on any model from the list of items given at the bottom of the screen." +
+                        "3. Tap on the detected plane to place the model." +
+                        "4. Use your fingers to re-locate, resize or rotate the model." +
+                        "5. To remove a model, tap on it and then click the remove button.");
+                builder.setTitle("Instructions");
+                builder.setCancelable(false);
+                builder
+                        .setPositiveButton(
+                                "Ok",
+                                new DialogInterface
+                                        .OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which)
+                                    {
+                                        finish();
+                                    }
+                                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
         gridView = (GridView) findViewById(R.id.asset_library);
         arFragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
