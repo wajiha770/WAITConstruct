@@ -41,6 +41,11 @@ public class Selection1 extends AppCompatActivity {
                     Intent proceed = new Intent(getApplicationContext(), Arview.class);
                     startActivity(proceed);
                 }
+                else if(option==2)
+                {
+                    Intent proceed = new Intent(getApplicationContext(), MeasureDistance.class);
+                    startActivity(proceed);
+                }
                 else {
                     Toast.makeText(Selection1.this, "You Must Choose One Option", LENGTH_SHORT).show();
                 }
@@ -66,6 +71,11 @@ public class Selection1 extends AppCompatActivity {
                     option=1;
                 }
                 break;
+            case R.id.plotSize:
+                if(checked)
+                {
+                    option=2;
+                }
         }
     }
 }

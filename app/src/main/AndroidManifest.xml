@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
+
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
@@ -23,6 +25,7 @@
         <activity android:name=".Selection1" />
         <activity android:name=".Arview1" />
         <activity android:name=".Arview" />
+        <activity android:name=".MeasureDistance"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

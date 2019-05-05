@@ -55,6 +55,16 @@
             android:textColor="@android:color/background_light"
             android:textSize="20dp" />
 
+        <RadioButton
+            android:id="@+id/plotSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/holo_blue_light"
+            android:onClick="radioClick"
+            android:text="Measure Plot Size"
+            android:textColor="@android:color/background_light"
+            android:textSize="20dp" />
+
     </RadioGroup>
 
     <ImageButton
