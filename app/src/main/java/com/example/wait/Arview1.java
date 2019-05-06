@@ -35,10 +35,10 @@ public class Arview1 extends AppCompatActivity
 {
 
     private ArFragment arFragment;
-    static ModelRenderable houseRenderable;
+    static ModelRenderable object;
     Button remove, help,btndst,clr;
     HitResult hitResult = null;
-    GridView gridView;
+    GridView listOfObjects;
     static int pos=0;
 
 
@@ -72,14 +72,14 @@ public class Arview1 extends AppCompatActivity
                                     public void onClick(DialogInterface dialog,
                                                         int which)
                                     {
-                                        finish();
+                                        dialog.cancel();
                                     }
                                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
         });
-        gridView = (GridView)findViewById(R.id.asset_library);
+        listOfObjects = (GridView)findViewById(R.id.asset_library);
         arFragment = (ArFragment)
                 getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
         createGrid();
@@ -89,13 +89,13 @@ public class Arview1 extends AppCompatActivity
         {
             arFragment.setOnTapArPlaneListener(
                     (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                        houseRenderable = createRenderables();
+                        object = createRenderables();
                         Anchor anchor = hitResult.createAnchor();
                         AnchorNode anchorNode = new AnchorNode(anchor);
                         anchorNode.setParent(arFragment.getArSceneView().getScene());
                         TransformableNode house = new TransformableNode(arFragment.getTransformationSystem());
 
-                        house.setRenderable(houseRenderable);
+                        house.setRenderable(object);
                         house.setParent(anchorNode);
                         house.select();
 
@@ -119,44 +119,44 @@ public class Arview1 extends AppCompatActivity
                 ModelRenderable.builder()
                         .setSource(this, R.raw.w1)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             } else if (pos == 2) {
                 ModelRenderable.builder()
                         .setSource(this, R.raw.w2)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             } else if (pos == 3) {
                 ModelRenderable.builder()
                         .setSource(this, R.raw.w3)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             } else if (pos == 4) {
                 ModelRenderable.builder()
                         .setSource(this, R.raw.w4)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             } else if (pos == 5) {
                 ModelRenderable.builder()
                         .setSource(this, R.raw.w5)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             } else if (pos == 6) {
                 ModelRenderable.builder()
                         .setSource(this, R.raw.d1)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             } else if (pos == 7) {
                 ModelRenderable.builder()
                         .setSource(this, R.raw.d3)
                         .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
+                        .thenAccept(renderable -> object = renderable);
             }
-            return houseRenderable;
+            return object;
         }
     private void createGrid()
     {
-        gridView.setAdapter(new Arview1.ImageAdapterGridView(this));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listOfObjects.setAdapter(new Arview1.ImageAdapterGridView(this));
+        listOfObjects.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
                 pos = position;

@@ -1,12 +1,7 @@
 package com.example.wait;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,19 +10,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
-import com.google.ar.core.Frame;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Camera;
-import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
-import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.Sun;
 import com.google.ar.sceneform.collision.Box;
 import com.google.ar.sceneform.math.Quaternion;
@@ -37,44 +28,40 @@ import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ShapeFactory;
 import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.ScaleController;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-public class MeasureDistance extends AppCompatActivity implements Node.OnTapListener, Scene.OnUpdateListener {
-    private static final String TAG = MeasureDistance.class.getSimpleName();
-    private static final double MIN_OPENGL_VERSION = 3.0;
+public class MeasureDistance extends AppCompatActivity implements Node.OnTapListener{
 
-    ArrayList<Float> arrayList1 = new ArrayList<>();
-    ArrayList<Float> arrayList2 = new ArrayList<>();
+    ArrayList<Float> List1 = new ArrayList<>();
+    ArrayList<Float> List2 = new ArrayList<>();
     private ArFragment arFragment;
     private AnchorNode lastAnchorNode;
-    private TextView txtDistance;
-    Button btnDist, btnClear, help;
+    private TextView distance;
+    Button calDistance, clear, help;
     ModelRenderable cubeRenderable;
     boolean btnLengthClicked;
     Vector3 point1, point2;
 
-    @SuppressLint("SetTextI18n")
     @Override
-    @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_measuredistance);
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
-        txtDistance = findViewById(R.id.txtDistance);
-        btnDist = findViewById(R.id.btnDistance);
-        btnDist.setOnClickListener(v -> {
+        distance = findViewById(R.id.txtDistance);
+        calDistance = findViewById(R.id.btnDistance);
+
+        calDistance.setOnClickListener(v -> {
             btnLengthClicked = true;
             onClear();
         });
-        btnClear = findViewById(R.id.clear);
-        btnClear.setOnClickListener(v -> onClear());
+        clear = findViewById(R.id.clear);
+        clear.setOnClickListener(v -> onClear());
+
         help=findViewById(R.id.help);
         help.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +84,7 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                                     public void onClick(DialogInterface dialog,
                                                         int which)
                                     {
-                                        finish();
+                                        dialog.cancel();
                                     }
                                 });
                 AlertDialog alertDialog = builder.create();
@@ -115,7 +102,6 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                         });
 
 
-
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
                     if (cubeRenderable == null) {
@@ -129,10 +115,10 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                             anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                             Pose pose = anchor.getPose();
-                            if (arrayList1.isEmpty()) {
-                                arrayList1.add(pose.tx());
-                                arrayList1.add(pose.ty());
-                                arrayList1.add(pose.tz());
+                            if (List1.isEmpty()) {
+                                List1.add(pose.tx());
+                                List1.add(pose.ty());
+                                List1.add(pose.tz());
                             }
                             TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
                             transformableNode.setParent(anchorNode);
@@ -150,21 +136,21 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                             Pose pose = anchor.getPose();
 
 
-                            if (arrayList2.isEmpty()) {
-                                arrayList2.add(pose.tx());
-                                arrayList2.add(pose.ty());
-                                arrayList2.add(pose.tz());
-                                float d = getDistanceMeters(arrayList1, arrayList2);
-                                txtDistance.setText("Distance: " + String.valueOf(d));
+                            if (List2.isEmpty()) {
+                                List2.add(pose.tx());
+                                List2.add(pose.ty());
+                                List2.add(pose.tz());
+                                float d = getDistanceMeters(List1, List2);
+                                distance.setText("Distance: " + String.valueOf(d));
                             } else {
-                                arrayList1.clear();
-                                arrayList1.addAll(arrayList2);
-                                arrayList2.clear();
-                                arrayList2.add(pose.tx());
-                                arrayList2.add(pose.ty());
-                                arrayList2.add(pose.tz());
-                                float d = getDistanceMeters(arrayList1, arrayList2);
-                                txtDistance.setText("Distance: " + String.valueOf(d)+" meters");
+                                List1.clear();
+                                List1.addAll(List2);
+                                List2.clear();
+                                List2.add(pose.tx());
+                                List2.add(pose.ty());
+                                List2.add(pose.tz());
+                                float d = getDistanceMeters(List1, List2);
+                                distance.setText("Distance: " + String.valueOf(d)+" meters");
                             }
 
                             TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
@@ -212,12 +198,12 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                 node.setParent(null);
             }
         }
-        arrayList1.clear();
-        arrayList2.clear();
+        List1.clear();
+        List2.clear();
         lastAnchorNode = null;
         point1 = null;
         point2 = null;
-        txtDistance.setText("");
+        distance.setText("");
     }
 
     private float getDistanceMeters(ArrayList<Float> arayList1, ArrayList<Float> arrayList2) {
@@ -245,17 +231,8 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                         renderableSize.x * transformableNodeScale.x,
                         renderableSize.y * transformableNodeScale.y,
                         renderableSize.z * transformableNodeScale.z);
-        txtDistance.setText("Height: " + String.valueOf(finalSize.y));
+        distance.setText("Height: " + String.valueOf(finalSize.y));
         Log.e("FinalSize: ", String.valueOf(finalSize.x + " " + finalSize.y + " " + finalSize.z));
         //Toast.makeText(this, "Final Size is " + String.valueOf(finalSize.x + " " + finalSize.y + " " + finalSize.z), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onUpdate(FrameTime frameTime) {
-        Frame frame = arFragment.getArSceneView().getArFrame();
-//        Collection<Anchor> updatedAnchors = frame.getUpdatedAnchors();
-//        for (Anchor anchor : updatedAnchors) {
-//            Handle updated anchors...
-//        }
     }
 }

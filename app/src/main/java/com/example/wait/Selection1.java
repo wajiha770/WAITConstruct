@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -17,7 +13,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class Selection1 extends AppCompatActivity {
 
     ImageButton proceed;
-    int option;
+    public static int option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +25,17 @@ public class Selection1 extends AppCompatActivity {
 
     private void proceed()
     {
-
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(option==0) {
-                    Intent proceed = new Intent(getApplicationContext(), Arview1.class);
+                    Intent proceed = new Intent(getApplicationContext(), Arview.class);
+                    proceed.putExtra("option", option);
                     startActivity(proceed);
                 }
                 else if(option==1){
                     Intent proceed = new Intent(getApplicationContext(), Arview.class);
+                    proceed.putExtra("option", option);
                     startActivity(proceed);
                 }
                 else if(option==2)

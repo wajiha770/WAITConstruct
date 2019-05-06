@@ -38,11 +38,15 @@ public class Arview extends AppCompatActivity
     HitResult hitResult = null;
     GridView gridView;
     int pos;
+    public static int option;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
+
+        option=getIntent().getIntExtra("option", Selection1.option);
+        Toast.makeText(this, "option"+option, Toast.LENGTH_SHORT).show();
 
         remove = findViewById(R.id.remove);
         help = findViewById(R.id.help);
@@ -69,7 +73,7 @@ public class Arview extends AppCompatActivity
                                     public void onClick(DialogInterface dialog,
                                                         int which)
                                     {
-                                        finish();
+                                        dialog.cancel();
                                     }
                                 });
                 AlertDialog alertDialog = builder.create();
@@ -114,43 +118,86 @@ public class Arview extends AppCompatActivity
                 });
     }
 
+
     private ModelRenderable createRenderables()
     {
-        if(pos==0)
+        if(option==0)
         {
-            ModelRenderable.builder()
-                    .setSource(this,R.raw.bg4_obj)
-                    .build()
-                    .thenAccept(renderable -> houseRenderable = renderable);
+            if (pos == 0) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.w1)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            } else if (pos == 1) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.w2)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            } else if (pos == 2) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.w3)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            } else if (pos == 3) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.w4)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            } else if (pos == 4) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.w5)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            } else if (pos == 5) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.d1)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            } else if (pos == 6) {
+                ModelRenderable.builder()
+                        .setSource(this, R.raw.d3)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            }
+        }
+        else if(option==1)
+        {
+            if(pos==0)
+            {
+                ModelRenderable.builder()
+                        .setSource(this,R.raw.bg4_obj)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
 
-        }
-        else if(pos==1)
-        {
-            ModelRenderable.builder()
-                    .setSource(this,R.raw.building_a01)
-                    .build()
-                    .thenAccept(renderable -> houseRenderable = renderable);
-        }
-        else if(pos==2)
-        {
-            ModelRenderable.builder()
-                    .setSource(this,R.raw.building_a02)
-                    .build()
-                    .thenAccept(renderable -> houseRenderable = renderable);
-        }
-        else if(pos==3)
-        {
-            ModelRenderable.builder()
-                    .setSource(this,R.raw.building_a03)
-                    .build()
-                    .thenAccept(renderable -> houseRenderable = renderable);
-        }
-        else if(pos==4)
-        {
-            ModelRenderable.builder()
-                    .setSource(this,R.raw.untitled)
-                    .build()
-                    .thenAccept(renderable -> houseRenderable = renderable);
+            }
+            else if(pos==1)
+            {
+                ModelRenderable.builder()
+                        .setSource(this,R.raw.building_a01)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            }
+            else if(pos==2)
+            {
+                ModelRenderable.builder()
+                        .setSource(this,R.raw.building_a02)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            }
+            else if(pos==3)
+            {
+                ModelRenderable.builder()
+                        .setSource(this,R.raw.building_a03)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            }
+            else if(pos==4)
+            {
+                ModelRenderable.builder()
+                        .setSource(this,R.raw.untitled)
+                        .build()
+                        .thenAccept(renderable -> houseRenderable = renderable);
+            }
         }
         return houseRenderable;
     }
@@ -169,6 +216,7 @@ public class Arview extends AppCompatActivity
 
     class ImageAdapterGridView extends BaseAdapter {
         private Context mContext;
+
         Integer[] imageIDs = {
                 R.drawable.bg4obj,
                 R.drawable.buildinga01,
