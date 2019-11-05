@@ -29,13 +29,11 @@ public class Selection1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(option==0) {
-                    Intent proceed = new Intent(getApplicationContext(), Arview.class);
-                    proceed.putExtra("option", option);
+                    Intent proceed = new Intent(getApplicationContext(), Arview1.class);
                     startActivity(proceed);
                 }
                 else if(option==1){
                     Intent proceed = new Intent(getApplicationContext(), Arview.class);
-                    proceed.putExtra("option", option);
                     startActivity(proceed);
                 }
                 else if(option==2)

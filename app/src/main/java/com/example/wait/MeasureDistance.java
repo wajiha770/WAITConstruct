@@ -1,11 +1,9 @@
 package com.example.wait;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +15,8 @@ import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Camera;
-import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.Sun;
-import com.google.ar.sceneform.collision.Box;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.Color;
@@ -33,7 +29,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeasureDistance extends AppCompatActivity implements Node.OnTapListener{
+public class MeasureDistance extends AppCompatActivity{
 
     ArrayList<Float> List1 = new ArrayList<>();
     ArrayList<Float> List2 = new ArrayList<>();
@@ -126,15 +122,12 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                             transformableNode.select();
                             lastAnchorNode = anchorNode;
                         } else {
-                            int val = motionEvent.getActionMasked();
-                            float axisVal = motionEvent.getAxisValue(MotionEvent.AXIS_X, motionEvent.getPointerId(motionEvent.getPointerCount() - 1));
-                            Log.e("Values:", String.valueOf(val) + String.valueOf(axisVal));
+
                             Anchor anchor = hitResult.createAnchor();
                             AnchorNode anchorNode = new AnchorNode(anchor);
                             anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                             Pose pose = anchor.getPose();
-
 
                             if (List2.isEmpty()) {
                                 List2.add(pose.tx());
@@ -183,7 +176,6 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
                         }
                     }
                 });
-
     }
 
     private void onClear() {
@@ -214,25 +206,5 @@ public class MeasureDistance extends AppCompatActivity implements Node.OnTapList
         return (float) Math.sqrt(distanceX * distanceX +
                 distanceY * distanceY +
                 distanceZ * distanceZ);
-    }
-
-
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-        Node node = hitTestResult.getNode();
-        Box box = (Box) node.getRenderable().getCollisionShape();
-        assert box != null;
-        Vector3 renderableSize = box.getSize();
-        Vector3 transformableNodeScale = node.getWorldScale();
-        Vector3 finalSize =
-                new Vector3(
-                        renderableSize.x * transformableNodeScale.x,
-                        renderableSize.y * transformableNodeScale.y,
-                        renderableSize.z * transformableNodeScale.z);
-        distance.setText("Height: " + String.valueOf(finalSize.y));
-        Log.e("FinalSize: ", String.valueOf(finalSize.x + " " + finalSize.y + " " + finalSize.z));
-        //Toast.makeText(this, "Final Size is " + String.valueOf(finalSize.x + " " + finalSize.y + " " + finalSize.z), Toast.LENGTH_SHORT).show();
     }
 }

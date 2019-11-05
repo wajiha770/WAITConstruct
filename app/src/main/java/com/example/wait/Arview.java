@@ -38,29 +38,23 @@ public class Arview extends AppCompatActivity
     HitResult hitResult = null;
     GridView gridView;
     int pos;
-    public static int option;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
 
-        option=getIntent().getIntExtra("option", Selection1.option);
-        Toast.makeText(this, "option"+option, Toast.LENGTH_SHORT).show();
-
         remove = findViewById(R.id.remove);
         help = findViewById(R.id.help);
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder
-                        = new AlertDialog
-                        .Builder(Arview.this);
-                builder.setMessage("1. Move your device slowly in a clockwise manner to detect any flat surface in front of you." +
-                        "2. Click on any model from the list of items given at the bottom of the screen." +
-                        "3. Tap on the detected plane to place the model." +
-                        "4. Use your fingers to re-locate, resize or rotate the model." +
-                        "5. To remove a model, tap on it and then click the remove button.");
+                AlertDialog.Builder builder = new AlertDialog.Builder(Arview.this);
+                builder.setMessage("1. Move your device slowly in a clockwise manner to detect any flat surface in front of you.\n" +
+                        "2. Click on any model from the list of items given at the bottom of the screen.\n" +
+                        "3. Tap on the detected plane to place the model.\n" +
+                        "4. Use your fingers to re-locate, resize or rotate the model.\n" +
+                        "5. To remove a model, tap on it and then click the remove button.\n");
                 builder.setTitle("Instructions");
                 builder.setCancelable(false);
                 builder
@@ -121,48 +115,7 @@ public class Arview extends AppCompatActivity
 
     private ModelRenderable createRenderables()
     {
-        if(option==0)
-        {
-            if (pos == 0) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.w1)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            } else if (pos == 1) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.w2)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            } else if (pos == 2) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.w3)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            } else if (pos == 3) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.w4)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            } else if (pos == 4) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.w5)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            } else if (pos == 5) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.d1)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            } else if (pos == 6) {
-                ModelRenderable.builder()
-                        .setSource(this, R.raw.d3)
-                        .build()
-                        .thenAccept(renderable -> houseRenderable = renderable);
-            }
-        }
-        else if(option==1)
-        {
-            if(pos==0)
+        if(pos==0)
             {
                 ModelRenderable.builder()
                         .setSource(this,R.raw.bg4_obj)
@@ -198,7 +151,6 @@ public class Arview extends AppCompatActivity
                         .build()
                         .thenAccept(renderable -> houseRenderable = renderable);
             }
-        }
         return houseRenderable;
     }
 
@@ -208,6 +160,7 @@ public class Arview extends AppCompatActivity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
+
                 pos = position;
                 Toast.makeText(Arview.this, "Selection item: " + pos, LENGTH_SHORT).show();
             }

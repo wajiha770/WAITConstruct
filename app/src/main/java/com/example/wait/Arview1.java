@@ -27,20 +27,16 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
-import com.example.wait.MeasureDistance;
-
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class Arview1 extends AppCompatActivity
 {
-
     private ArFragment arFragment;
     static ModelRenderable object;
     Button remove, help,btndst,clr;
     HitResult hitResult = null;
     GridView listOfObjects;
     static int pos=0;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,5 +208,3 @@ public class Arview1 extends AppCompatActivity
         }
     }
 }
-
-
